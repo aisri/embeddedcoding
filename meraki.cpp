@@ -251,9 +251,6 @@ void enumerate_devices(device_t* root, int level = 0, bool print = false, gpio_a
             }
         } else if (IS_GPIO(root->info)) {
             gpio_args temp;
-            temp.which = GPIO_PIN_NUMBER(root->info);
-            if (args->which == -1)
-                temp.which = -1;
 
             if (IS_INPUT(root->info)) {
                 printf("INP ");
@@ -266,9 +263,13 @@ void enumerate_devices(device_t* root, int level = 0, bool print = false, gpio_a
 
             int tmp = temp.is_inp | temp.is_out << 1;
             if (args) {
+                temp.which = GPIO_PIN_NUMBER(root->info);
+                if (args->which == -1)
+                    temp.which = -1;
+
                 if (args->which == temp.which
-                && tmp & args->is_inp
-                || tmp & args->is_out) {
+                    && (tmp & args->is_inp
+                        || tmp & args->is_out)) {
                     args->cb(root);
                 }
             }
@@ -286,7 +287,7 @@ void enumerate_devices(device_t* root, int level = 0, bool print = false, gpio_a
 
 void enumerate_devices_ext(device_t* root)
 {
-    enumerate_devices(root, 0, true);
+    enumerate_devices(root, 0, true, NULL);
 }
 
 void process_gpio(device_t* dev)
@@ -309,12 +310,16 @@ int main()
 {
     printf("Enumerating Devices\n");
     enumerate_devices(&device_root);
-    printf("Enumerating Devices W/ Extensions\n");
+    printf("\nEnumerating Devices W/ Extensions\n");
     enumerate_devices_ext(&device_root);
-    printf("Finding GPIOs\n");
+    printf("\nFinding GPIOs\n");
+    printf("\nfind_gpios(1, 1, -1, process_gpio);\n");
     find_gpios(1, 1, -1, process_gpio);
+    printf("\nfind_gpios(1, 0, -1, process_gpio);\n");
     find_gpios(1, 0, -1, process_gpio);
+    printf("\nfind_gpios(0, 1, -1, process_gpio);\n");
     find_gpios(0, 1, -1, process_gpio);
+    printf("\nfind_gpios(1, 0, 4, process_gpio);\n");
     find_gpios(1, 0, 4, process_gpio);
     return 0;
 }
