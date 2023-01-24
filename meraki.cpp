@@ -21,27 +21,6 @@ root
             data
             prog
     nv
-
-
-root
-                        gpbus
-                gp0
-                gp1
-                gp2
-        m1
-                m2
-                        data
-                prog
-        nv
-You are allowed to modify `enumerate_devices`s parameters and
-return value, and may solve the problem using iteration or recursion.
-
-typedef struct device {
-    const char *name;
-    struct device *next_sibling;
-    struct device *first_child;
-    uint16_t info;
-} device_t;
 */
 
 /*
