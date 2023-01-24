@@ -6,10 +6,7 @@ using namespace std;
 struct node {
     int data;
     struct node *next;
-    node(int value) {
-        data = value;
-        next = nullptr;
-    }
+    node(int value, struct node *link=nullptr) : data(value), next(link){}
 };
 
 class sll
