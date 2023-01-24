@@ -176,17 +176,17 @@ enum memory_attribs {
 };
 
 #define DEVICE_ATTRIB_MASK (0x1E0)
-#define IS_READ(x) (((x)&DEVICE_ATTRIB_MASK) && (0x1 << READ))
-#define IS_WRITE(x) (((x)&DEVICE_ATTRIB_MASK) && (0x1 << WRITE))
-#define IS_EXEC(x) (((x)&DEVICE_ATTRIB_MASK) && (0x1 << EXEC))
-#define IS_WORD_ALIGN(x) (((x)&DEVICE_ATTRIB_MASK) && (0x1 << WORD_ALIGN))
+#define IS_READ(x) (((x) & DEVICE_ATTRIB_MASK) && (0x1 << READ))
+#define IS_WRITE(x) (((x) & DEVICE_ATTRIB_MASK) && (0x1 << WRITE))
+#define IS_EXEC(x) (((x) & DEVICE_ATTRIB_MASK) && (0x1 << EXEC))
+#define IS_WORD_ALIGN(x) (((x) & DEVICE_ATTRIB_MASK) && (0x1 << WORD_ALIGN))
 
 enum gpio_attribs {
     INPUT = 0x8,
     OUTPUT = 0x7,
 };
-#define IS_INPUT(x) (((x)&DEVICE_ATTRIB_MASK) && (0x1 << INPUT))
-#define IS_OUTPUT(x) (((x)&DEVICE_ATTRIB_MASK) && (0x1 << OUTPUT))
+#define IS_INPUT(x) (((x) & DEVICE_ATTRIB_MASK) && (0x1 << INPUT))
+#define IS_OUTPUT(x) (((x) & DEVICE_ATTRIB_MASK) && (0x1 << OUTPUT))
 
 #define IDENT (" ")
 
@@ -199,7 +199,7 @@ typedef struct gpio_args {
 } gpio_args;
 #define GPIO_PIN_MASK (0x3E00)
 #define GPIO_PIN_SHIFT (0x8)
-#define GPIO_PIN_NUMBER(x) (((x)&GPIO_PIN_MASK) >> GPIO_PIN_SHIFT)
+#define GPIO_PIN_NUMBER(x) (((x) & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT)
 
 void enumerate_devices(device_t* root, int level = 0, bool print = false, gpio_args* args = NULL)
 {
